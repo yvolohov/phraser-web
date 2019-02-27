@@ -31,6 +31,51 @@ class PhraseController extends Controller
 
     public function update(int $phraseId)
     {
-        return 'UPD';
+        $results = DB::select(
+            "SELECT
+            phrases.id,
+            IFNULL(tests.passages_cnt, 0) AS passages_cnt,
+            IF(tests.phrase_id IS NULL, 0, 1) AS test_exists
+            FROM phrases
+            LEFT JOIN tests
+            ON (phrases.id = tests.phrase_id)
+            WHERE phrases.id = :phrase_id",
+            ['phrase_id' => $phraseId]
+        );
+
+        if (count($results) === 0) {
+            return response()->json(['message' => 'Phrase not found'], 404);
+        }
+
+        $testExists = $results[0]->test_exists;
+        $passagesCnt = $results[0]->passages_cnt;
+
+        if ($testExists) {
+            $this->updateTest($phraseId, $passagesCnt + 1);
+        }
+        else {
+            $this->insertTest($phraseId);
+        }
+
+        return response()->json(['message' => 'Success'], 200);
+    }
+
+    private function insertTest($phraseId)
+    {
+        DB::insert(
+            "INSERT INTO tests (phrase_id, passages_cnt, first_passage, last_passage)
+            VALUES (:phrase_id, 1, NOW(), NOW())",
+            ['phrase_id' => $phraseId]
+        );
+    }
+
+    private function updateTest($phraseId, $passagesCnt)
+    {
+        DB::update(
+            "UPDATE tests 
+            SET passages_cnt = :passages_cnt, last_passage = NOW()
+            WHERE phrase_id = :phrase_id",
+            ['phrase_id' => $phraseId, 'passages_cnt' => $passagesCnt]
+        );
     }
 }
