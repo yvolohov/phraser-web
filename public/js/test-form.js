@@ -111,6 +111,10 @@ $(document).ready(function() {
             var dbSentence = this.tokenizer.tokenizeSentence(sentence);
 
             if (tokSentence === dbSentence) {
+                $.ajax({
+                    type: "PUT",
+                    url: "/api/phrases/" + this.questions[this.questionIndex].id
+                });
                 this.next();
             }
             this.answerField.focus();
@@ -127,6 +131,10 @@ $(document).ready(function() {
             var dbSentence = this.tokenizer.tokenizeSentence(sentence);
 
             if (e.keyCode === 13 && tokSentence === dbSentence) {
+                $.ajax({
+                    type: "PUT",
+                    url: "/api/phrases/" + this.questions[this.questionIndex].id
+                });
                 this.next();
             }
             else {
