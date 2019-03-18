@@ -21,7 +21,7 @@ class PhraseController extends Controller
             FROM phrases
             LEFT JOIN tests
             ON (phrases.id = tests.phrase_id)
-            ORDER BY last_passage, id
+            ORDER BY passages_cnt, id
             LIMIT :phrases_count",
             ['phrases_count' => env('QUESTIONS_COUNT', 30)]
         );
