@@ -5,7 +5,6 @@
         <title>Trainer</title>
         <link href="{{ asset('css/restyle.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/test-form.css') }}" rel="stylesheet">
-        <script type="text/javascript" src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/test-form.js') }}"></script>
     </head>
     <body>
@@ -37,7 +36,9 @@
                     <div class="cell">
                         <div id="button-container">
                             <button class="button rounded primary" id="button-answer" type="button" disabled="disabled">Ответить</button>
-                            <button class="button rounded" id="button-help" type="button" disabled="disabled">Подсказка</button>
+                            <button class="button rounded" id="button-open-symbol" type="button" disabled="disabled">Символ</button>
+                            <button class="button rounded" id="button-open-word" type="button" disabled="disabled">Слово</button>
+                            <button class="button rounded" id="button-open-sentence" type="button" disabled="disabled">Фраза</button>
                         </div>
                     </div>
                 </div>
