@@ -21,7 +21,7 @@ class PhraseController extends Controller
             FROM phrases
             LEFT JOIN tests
             ON (phrases.id = tests.phrase_id)
-            ORDER BY passages_cnt, id
+            ORDER BY passages_cnt, last_passage, id
             LIMIT :phrases_count",
             ['phrases_count' => env('QUESTIONS_COUNT', 30)]
         );
@@ -49,9 +49,10 @@ class PhraseController extends Controller
 
         $testExists = $results[0]->test_exists;
         $passagesCnt = $results[0]->passages_cnt;
+        $newPassagesCnt = ($passagesCnt < 3) ? $passagesCnt + 1 : $passagesCnt;
 
         if ($testExists) {
-            $this->updateTest($phraseId, $passagesCnt + 1);
+            $this->updateTest($phraseId, $newPassagesCnt);
         }
         else {
             $this->insertTest($phraseId);
