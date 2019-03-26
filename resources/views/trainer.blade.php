@@ -12,17 +12,18 @@
             <div class="grid condensed">
                 <div class="row start-screen">
                     <div class="cell">
-                        <button class="button rounded primary" id="button-start">Начать упражнение</button>
+                        <button class="button rounded primary" id="button-start">Start with new phrases</button>
+                        <button class="button rounded primary" id="button-start-by-studied">Start with studied phrases</button>
                     </div>
                 </div>
                 <div class="row main-screen" style="display: none;">
                     <div class="cell">
-                        <h5 id="text-progress">Загрузка ...</h5>
+                        <h5 id="text-progress">Loading ...</h5>
                     </div>
                 </div>
                 <div class="row main-screen" style="display: none;">
                     <div class="cell">
-                        <h3 id="text-question">Загрузка ...</h3>
+                        <h3 id="text-question">Loading ...</h3>
                     </div>
                 </div>
                 <div class="row main-screen" style="display: none;">
@@ -35,10 +36,10 @@
                 <div class="row main-screen" style="display: none;">
                     <div class="cell">
                         <div id="button-container">
-                            <button class="button rounded primary" id="button-answer" type="button" disabled="disabled">Ответить</button>
-                            <button class="button rounded" id="button-open-symbol" type="button" disabled="disabled">Символ</button>
-                            <button class="button rounded" id="button-open-word" type="button" disabled="disabled">Слово</button>
-                            <button class="button rounded" id="button-open-sentence" type="button" disabled="disabled">Фраза</button>
+                            <button class="button rounded primary" id="button-answer" type="button" disabled="disabled">Answer</button>
+                            <button class="button rounded" id="button-open-symbol" type="button" disabled="disabled">Symbol</button>
+                            <button class="button rounded" id="button-open-word" type="button" disabled="disabled">Word</button>
+                            <button class="button rounded" id="button-open-sentence" type="button" disabled="disabled">Phrase</button>
                         </div>
                     </div>
                 </div>
