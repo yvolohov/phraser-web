@@ -30,6 +30,30 @@ class PhraseController extends Controller
         return response()->json($results);
     }
 
+    public function studiedPhrases()
+    {
+        $results = DB::select(
+            "SELECT
+            phrases.id,
+            phrases.phrase,
+            phrases.translation,
+            IFNULL(tests.passages_cnt, 0) AS passages_cnt,
+            IFNULL(tests.real_passages_cnt, 0) AS real_passages_cnt,
+            IFNULL(tests.first_passage, '0000-00-00 00:00:00') AS first_passage,
+            IFNULL(tests.last_passage, '0000-00-00 00:00:00') AS last_passage,
+            IF(tests.phrase_id IS NULL, 0, 1) AS test_exists
+            FROM phrases
+            LEFT JOIN tests
+            ON (phrases.id = tests.phrase_id)
+            WHERE tests.passages_cnt >= 3
+            ORDER BY last_passage, id
+            LIMIT :phrases_count",
+            ['phrases_count' => env('STUDIED_QUESTIONS_COUNT', 30)]
+        );
+
+        return response()->json($results);
+    }
+
     public function update(int $phraseId)
     {
         $results = DB::select(
